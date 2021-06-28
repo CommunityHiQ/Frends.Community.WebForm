@@ -52,6 +52,7 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 | ----- | ----- |
 | 1.0.0 | Initial version of web form task |
 | 1.1.0 | Frends.Tasks.Attributes library is no longer used. Updated documentation. |
+| 1.1.1 | Converted to support .Net Framework 4.7.1 and .Net Standard 2.0 |
 
 
 ## License
