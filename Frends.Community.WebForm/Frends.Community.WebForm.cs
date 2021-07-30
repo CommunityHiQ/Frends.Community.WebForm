@@ -28,7 +28,8 @@ namespace Frends.Community.WebForm
         }
 
         /// <summary>
-        /// Fill and send data to web forms.
+        /// Fill and send data to web forms using the provided handler.
+        /// Separate from actual task and public to facilitate testing.
         /// </summary>
         /// <returns>Object {string FilePath }  </returns>
         public static Output SendFormWithHandler(HttpMessageHandler handler, Parameters parameters, string address)
