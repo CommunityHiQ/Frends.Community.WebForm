@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.ComponentModel;
 using System.IO;
 using System.Net.Http;
 
@@ -12,11 +11,11 @@ namespace Frends.Community.WebForm
     {
         /// <summary>
         /// Fill and send data to web forms.
+        /// Documentation: https://github.com/CommunityHiQ/Frends.Community.WebForm
         /// </summary>
         /// <returns>Object {string FilePath }  </returns>
         public static Output SendForm(Parameters parameters, Options options)
         {
-            HttpResponseMessage result = null;
             var handler = new HttpClientHandler();
 
             if (!string.IsNullOrEmpty(options.Username) || !string.IsNullOrEmpty(options.Password))
@@ -25,6 +24,17 @@ namespace Frends.Community.WebForm
                 handler = new HttpClientHandler { Credentials = credentials };
             }
 
+            return SendFormWithHandler(handler, parameters, options.Address);
+        }
+
+        /// <summary>
+        /// Fill and send data to web forms using the provided handler.
+        /// Separate from actual task and public to facilitate testing.
+        /// </summary>
+        /// <returns>Object {string FilePath }  </returns>
+        public static Output SendFormWithHandler(HttpMessageHandler handler, Parameters parameters, string address)
+        {
+            HttpResponseMessage result = null;
             using (var httpClient = new System.Net.Http.HttpClient(handler))
             {
                 var form = new MultipartFormDataContent();
@@ -47,7 +57,7 @@ namespace Frends.Community.WebForm
                 }
                 try
                 {
-                    result = httpClient.PostAsync(options.Address, form).Result;
+                    result = httpClient.PostAsync(address, form).Result;
                 }
                 catch (Exception ex)
                 {
